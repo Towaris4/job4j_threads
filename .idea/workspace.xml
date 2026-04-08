@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="848f8dbd-c1a0-442b-8cd8-293cf7618125" name="Changes" comment="2. Создание и запуск нити [#1016 #562045]">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="848f8dbd-c1a0-442b-8cd8-293cf7618125" name="Changes" comment="3. Состояние нити. [#229175]" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,6 +46,7 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Application.ConcurrentOutput.executor": "Run",
     "Application.ThreadState.executor": "Run",
+    "Application.Wget.executor": "Run",
     "Maven.job4j_threads [install].executor": "Run",
     "Maven.job4j_threads [package].executor": "Run",
     "Maven.job4j_threads [validate].executor": "Run",
@@ -66,7 +65,7 @@
       <recent name="C:\projects\job4j_threads" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Wget">
     <configuration name="ThreadState" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ru.job4j.concurrent.ThreadState" />
       <module name="job4j_threads" />
@@ -80,8 +79,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Wget" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.job4j.concurrent.Wget" />
+      <module name="job4j_threads" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.job4j.concurrent.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Wget" />
         <item itemvalue="Application.ThreadState" />
       </list>
     </recent_temporary>
@@ -127,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775659194897</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="3. Состояние нити. [#229175]">
+      <option name="closed" value="true" />
+      <created>1775664781255</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1775664781255</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -146,6 +167,7 @@
     <MESSAGE value="2. Ветки в IDEA [#504828]" />
     <MESSAGE value="2. Создание и запуск нити [#1016]" />
     <MESSAGE value="2. Создание и запуск нити [#1016 #562045]" />
-    <option name="LAST_COMMIT_MESSAGE" value="2. Создание и запуск нити [#1016 #562045]" />
+    <MESSAGE value="3. Состояние нити. [#229175]" />
+    <option name="LAST_COMMIT_MESSAGE" value="3. Состояние нити. [#229175]" />
   </component>
 </project>
