@@ -30,3 +30,4 @@ public class ConsoleProgress implements Runnable {
         }
     }
 }
+
