@@ -6,16 +6,12 @@ public class ThreadState {
                 () -> { });
         Thread second = new Thread(
                 () -> { });
-        taskMethod(first, "First");
-        taskMethod(second, "Second");
-    }
-
-    private static void taskMethod(Thread thread, String name) {
-        System.out.println(name + ":" + thread.getState());
-        thread.start();
-        while (thread.getState() != Thread.State.TERMINATED) {
-            System.out.println(name + ":" + thread.getState());
+        first.start();
+        second.start();
+        System.out.println("First" + ":" + first.getState());
+        System.out.println("Second" + ":" + second.getState());
+        while ((first.getState() != Thread.State.TERMINATED) && (second.getState() != Thread.State.TERMINATED)) {
         }
-        System.out.println(name + ":" + thread.getState());
+        System.out.println("Work succesful");
     }
 }
