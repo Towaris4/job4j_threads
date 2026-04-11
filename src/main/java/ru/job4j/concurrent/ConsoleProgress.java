@@ -17,16 +17,15 @@ public class ConsoleProgress implements Runnable {
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
             var process = new char[] {'-', '\\', '|', '/'};
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < process.length; i++) {
                 System.out.print("\r load: " + process[i]);
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
-                    System.out.println("\rLoad complete.");
                     Thread.currentThread().interrupt();
-                    return;
                 }
             }
         }
+        System.out.println("\rLoad complete.");
     }
 }
