@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.lang.Thread.sleep;
 
 public class Wget implements Runnable {
     private final String url;
@@ -37,16 +36,21 @@ public class Wget implements Runnable {
             System.out.println("Open connection: " + (System.currentTimeMillis() - startAt) + " ms");
             var dataBuffer = new byte[512];
             int bytesRead;
-            long sleepTime;
-            var downloadAt = System.nanoTime();
-            int downloadBytes = 0;
+            long sleepTime = 0;
+            startAt = System.nanoTime();
             long realSpeed;
+            long time;
             while ((bytesRead = input.read(dataBuffer, 0, dataBuffer.length)) != -1) {
-                downloadBytes += bytesRead;
-                realSpeed = (long) downloadBytes * 1_000_000_000L / (System.nanoTime() - downloadAt);
-                if (realSpeed > speed) {
-                    sleepTime = realSpeed / speed;
-                    sleep(sleepTime);
+                loadBytes += bytesRead;
+                if (speed < loadBytes) {
+                    time = (System.nanoTime() - startAt);
+                    if (time < 1000000000) {
+                        realSpeed = loadBytes * 1_000_000_000L / time;
+                        sleepTime =  realSpeed  / speed;
+                        Thread.sleep(sleepTime);
+                        startAt = System.nanoTime();
+                        loadBytes = 0;
+                    }
                 }
                 output.write(dataBuffer, 0, bytesRead);
             }
