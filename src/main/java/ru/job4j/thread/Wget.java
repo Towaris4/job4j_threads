@@ -36,27 +36,34 @@ public class Wget implements Runnable {
         try (var input = new URL(url).openStream();
              var output = new FileOutputStream(file)) {
             System.out.println("Open connection: " + (System.currentTimeMillis() - startAt) + " ms");
-            var dataBuffer = new byte[512];
+            var dataBuffer = new byte[8192];
             int bytesRead;
-            long sleepTime = 0;
-            startAt = System.nanoTime();
-            long realSpeed;
+            long sleepTime;
+            startAt = System.currentTimeMillis();
+            long start = System.currentTimeMillis();
             long time;
+            long realSpeed;
             while ((bytesRead = input.read(dataBuffer, 0, dataBuffer.length)) != -1) {
                 loadBytes += bytesRead;
-                if (speed < loadBytes) {
-                    time = (System.nanoTime() - startAt);
-                    if (time < 1000000000) {
-                        realSpeed = loadBytes * 1_000_000L / time;
-                        sleepTime =  realSpeed  / speed;
-                        Thread.sleep(sleepTime);
-                        startAt = System.nanoTime();
+                if (speed * 1000 < loadBytes) {
+                    time = (System.currentTimeMillis() - startAt);
+                    realSpeed = loadBytes / time;
+                    if (time < 1000) {
+                        sleepTime =  (1000 - time);
+                        sleep(sleepTime);
+                        startAt = System.currentTimeMillis();
+                        loadBytes = 0;
+                    } else if (realSpeed > speed) {
+                        sleepTime= loadBytes / speed - time;
+                        sleep(sleepTime);
+                        startAt = System.currentTimeMillis();
                         loadBytes = 0;
                     }
                 }
                 output.write(dataBuffer, 0, bytesRead);
             }
-            System.out.println(Files.size(file.toPath()) + " bytes");
+            long timeLoad = System.currentTimeMillis() - start;
+            System.out.println(Files.size(file.toPath()) + " bytes in: " + timeLoad + "ms.");
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
