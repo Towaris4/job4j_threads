@@ -5,9 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.StringJoiner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.Thread.sleep;
 
 public class Wget implements Runnable {
     private final String url;
@@ -45,7 +47,7 @@ public class Wget implements Runnable {
                 if (speed < loadBytes) {
                     time = (System.nanoTime() - startAt);
                     if (time < 1000000000) {
-                        realSpeed = loadBytes * 1_000_000_000L / time;
+                        realSpeed = loadBytes * 1_000_000L / time;
                         sleepTime =  realSpeed  / speed;
                         Thread.sleep(sleepTime);
                         startAt = System.nanoTime();
