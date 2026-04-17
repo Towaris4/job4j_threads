@@ -12,7 +12,6 @@ public class ParseFile {
         this.file = file;
     }
 
-
     public String getContent() throws IOException {
         StringBuilder output = new StringBuilder();
         int data;
