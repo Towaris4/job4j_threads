@@ -13,10 +13,11 @@ public class ParseFile {
     }
 
 
-    public String getContent(Predicate<Integer> filter) throws IOException {
+    public String getContent() throws IOException {
         StringBuilder output = new StringBuilder();
+        int data;
         try (BufferedReader input = new BufferedReader(new FileReader(file))) {
-            input.lines().flatMap((line) -> line.chars().boxed()).filter(filter).forEach((x) -> output.append((char) x.intValue()));
+            output.append(input.lines());
         }
         return output.toString();
     }
@@ -29,12 +30,4 @@ public class ParseFile {
         return output.toString();
     }
 
-    public void saveContent(String content) throws IOException {
-        try (PrintWriter output = new PrintWriter(
-                new BufferedOutputStream(
-                        new FileOutputStream(file)
-                ))) {
-            output.write(content);
-        }
-    }
 }
