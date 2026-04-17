@@ -1,6 +1,7 @@
 package ru.job4j.concurrent;
 
 public class ThreadState {
+    @SuppressWarnings("checkstyle:EmptyBlock")
     public static void main(String[] args) {
         Thread first = new Thread(
                 () -> { });
@@ -10,7 +11,8 @@ public class ThreadState {
         second.start();
         System.out.println("First" + ":" + first.getState());
         System.out.println("Second" + ":" + second.getState());
-        while ((first.getState() != Thread.State.TERMINATED) || (second.getState() != Thread.State.TERMINATED)) {
+        while ((first.getState() != Thread.State.TERMINATED)
+                || (second.getState() != Thread.State.TERMINATED)) {
         }
         System.out.println("Work succesful");
     }

@@ -1,6 +1,5 @@
 package ru.job4j;
 
-
 public final class Cache {
     private static Cache cache;
 
@@ -11,5 +10,6 @@ public final class Cache {
             }
             return cache;
 
-        }}
+        }
+    }
 }
