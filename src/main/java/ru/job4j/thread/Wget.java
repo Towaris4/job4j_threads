@@ -63,7 +63,7 @@ public class Wget implements Runnable {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        Pattern URL_PATTERN = Pattern.compile(
+        Pattern urlPattern = Pattern.compile(
                 "^(https?:\\/\\/)?([\\w\\-\\.]+)\\.([a-z]{2,6}\\.?)(\\/[\\w\\-\\.\\/]*)*\\/?$");
         if (!(args.length == 2)) {
             System.out.println("Отсутствует необходимое количество параметров.");
@@ -71,16 +71,16 @@ public class Wget implements Runnable {
         String url = null;
         int speed = 0;
         for (String arg : args) {
-            if (arg != null && URL_PATTERN.matcher(arg).matches()) {
+            if (arg != null && urlPattern.matcher(arg).matches()) {
                 url = arg;
             }
         }
         if (url.isEmpty()) {
             System.out.println("Отсутствует ссылка.");
         }
-        Pattern NUMBER_PATTERN = Pattern.compile("^[-+]?\\d+([.,\\s]\\d+)?$");
+        Pattern numberPattern = Pattern.compile("^[-+]?\\d+([.,\\s]\\d+)?$");
         for (String arg : args) {
-            if (arg != null && NUMBER_PATTERN.matcher(arg).matches()) {
+            if (arg != null && numberPattern.matcher(arg).matches()) {
                 speed = Integer.parseInt(arg);
             }
         }
