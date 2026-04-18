@@ -1,9 +1,8 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
 import java.util.function.Predicate;
+
 
 public class ParseFile {
     private final File file;
@@ -12,21 +11,15 @@ public class ParseFile {
         this.file = file;
     }
 
-    public String getContent() throws IOException {
+    public String getContent(Predicate<Character> predicate) throws IOException {
         StringBuilder output = new StringBuilder();
-        int data;
+        char data;
         try (BufferedReader input = new BufferedReader(new FileReader(file))) {
-            output.append(input.lines());
+            data = (char) input.read();
+            if (predicate.test(data)) {
+                output.append(data);
+            }
         }
         return output.toString();
     }
-
-    public String getContentWithoutUnicode() throws IOException {
-        StringBuilder output = new StringBuilder();
-        try (BufferedReader input = new BufferedReader(new FileReader(file))) {
-            input.lines().flatMapToInt(String::chars).filter((int x) -> x < 0x80).forEach((int x) -> output.append((char) x));
-        }
-        return output.toString();
-    }
-
 }
