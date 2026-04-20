@@ -18,13 +18,9 @@ public class SimpleBlockingQueue<T> {
     }
 
     public synchronized T poll() throws InterruptedException {
-        T result = null;
-        while (result == null) {
-            result = queue.poll();
-            if (result == null) {
+        while (queue.isEmpty()) {
                 wait();
             }
-        }
-        return result;
+        return queue.poll();
     }
 }
