@@ -16,7 +16,7 @@ class SimpleBlockingQueueTest {
 
     @Test
     void offerAndPollInTwoThreads() throws InterruptedException {
-        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(100);
         List<Integer> result = new ArrayList<>();
         Thread consumer = new Thread(() -> {
             try {
@@ -34,9 +34,31 @@ class SimpleBlockingQueueTest {
     }
 
     @Test
+    void limitExceeded() throws InterruptedException {
+        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(1);
+        List<Integer> result = new ArrayList<>();
+        Thread consumer = new Thread(() -> {
+            try {
+                result.add(queue.poll());
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+        Thread producer = new Thread(() -> {
+            queue.offer(1);
+            queue.offer(2);
+        });
+        consumer.start();
+        producer.start();
+        producer.join();
+        consumer.join();
+        assertThat(result).hasSize(1).contains(1);
+    }
+
+    @Test
     public void whenFetchAllThenGetIt() throws InterruptedException {
         final CopyOnWriteArrayList<Integer> buffer = new CopyOnWriteArrayList<>();
-        final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+        final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(100);
         Thread producer = new Thread(
                 () -> {
                     IntStream.range(0, 5).forEach(
