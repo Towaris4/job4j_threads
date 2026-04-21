@@ -32,6 +32,7 @@ public class SimpleBlockingQueue<T> {
                 wait();
             }
         count--;
-        return queue.poll();
+        T result = queue.poll();
+        return result;
     }
 }
