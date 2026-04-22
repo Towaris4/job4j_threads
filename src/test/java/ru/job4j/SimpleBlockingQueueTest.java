@@ -25,7 +25,13 @@ class SimpleBlockingQueueTest {
                 Thread.currentThread().interrupt();
             }
         });
-        Thread producer = new Thread(() -> queue.offer(1));
+        Thread producer = new Thread(() -> {
+            try {
+                queue.offer(1);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
         consumer.start();
         producer.start();
         producer.join();
@@ -45,8 +51,12 @@ class SimpleBlockingQueueTest {
             }
         });
         Thread producer = new Thread(() -> {
-            queue.offer(1);
-            queue.offer(2);
+            try {
+                queue.offer(1);
+                queue.offer(2);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         });
         consumer.start();
         producer.start();
@@ -61,9 +71,15 @@ class SimpleBlockingQueueTest {
         final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(100);
         Thread producer = new Thread(
                 () -> {
-                    IntStream.range(0, 5).forEach(
-                            queue::offer
-                    );
+                        IntStream.range(0, 5).forEach(
+                                value -> {
+                                    try {
+                                        queue.offer(value);
+                                    } catch (InterruptedException e) {
+                                        Thread.currentThread().interrupt();
+                                    }
+                                }
+                        );
                 }
         );
 

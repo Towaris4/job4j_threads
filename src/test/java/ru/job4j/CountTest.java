@@ -10,13 +10,10 @@ public class CountTest {
         var count = new Count();
         var first = new Thread(count::increment);
         var second = new Thread(count::increment);
-        /* Запускаем нити. */
         first.start();
         second.start();
-        /* Заставляем главную нить дождаться выполнения наших нитей. */
         first.join();
         second.join();
-        /* Проверяем результат. */
         assertThat(count.get()).isEqualTo(2);
     }
 }
