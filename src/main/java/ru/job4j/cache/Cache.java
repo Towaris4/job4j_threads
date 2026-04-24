@@ -15,15 +15,12 @@ public class Cache {
     }
 
     public boolean update(Base model) {
-        if (memory.computeIfPresent(model.id(), (k, v) -> {
-            if (v.version() != model.version()) {
-                throw new OptimisticException("Разные версии");
-            }
-                return new Base(model.id(), model.name(), model.version() + 1);
-        }) == null) {
-            return false;
+    return (memory.computeIfPresent(model.id(), (k, v) -> {
+        if (v.version() != model.version()) {
+            throw new OptimisticException("Разные версии");
         }
-        return true;
+        return new Base(model.id(), model.name(), model.version() + 1);
+    }) != null);
     }
 
     public void delete(int id) {
