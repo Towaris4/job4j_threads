@@ -9,7 +9,10 @@ public class EmailNotification {
             Runtime.getRuntime().availableProcessors()
     );
 
-    public void send(String subject, String body, String email);
+    public void send(String subject, String body, String email)
+    {
+
+    };
 
     public void emailTo(User user) {
         String name = user.email();
