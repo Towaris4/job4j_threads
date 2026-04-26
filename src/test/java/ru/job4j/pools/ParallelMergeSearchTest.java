@@ -10,7 +10,7 @@ class ParallelMergeSearchTest {
     public void whenFindElementSuccesful() {
         Integer[] array = {0, 1, 2, 44, 28};
         Integer element = 44;
-        int result = ParallelMergeSearch.findIndex(array, element);
+        int result = ParallelSearch.findIndex(array, element);
         assertThat(result).isEqualTo(3);
     }
 
@@ -18,7 +18,7 @@ class ParallelMergeSearchTest {
     public void whenDifferentTypeElementFail() {
         String[] array = {" ", " ", "okay", " ", " "};
         String element = "okay";
-        int result = ParallelMergeSearch.findIndex(array, element);
+        int result = ParallelSearch.findIndex(array, element);
         assertThat(result).isEqualTo(2);
     }
 
@@ -28,7 +28,7 @@ class ParallelMergeSearchTest {
                 " ", " ", " ", " ", " ", " ", " ", " ", " ",
                 " ", " ", " ", " ", " ", " ", " ", "okay", " "};
         String element = "okay";
-        int result = ParallelMergeSearch.findIndex(array, element);
+        int result = ParallelSearch.findIndex(array, element);
         assertThat(result).isEqualTo(24);
     }
 
@@ -38,7 +38,7 @@ class ParallelMergeSearchTest {
                 " ", " ", " ", " ", " ", " ", " ", " ", " ",
                 " ", " ", " ", " ", " ", " ", " ", " ", " "};
         String element = "no";
-        int result = ParallelMergeSearch.findIndex(array, element);
+        int result = ParallelSearch.findIndex(array, element);
         assertThat(result).isEqualTo(-1);
     }
 }
