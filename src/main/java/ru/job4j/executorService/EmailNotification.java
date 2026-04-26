@@ -19,12 +19,7 @@ public class EmailNotification {
         String email = user.email();
         String subject = String.format("Notification %s to email %s.", name, email);
         String body = String.format("Add a new event to %s.", name);
-        pool.submit(new Runnable() {
-            @Override
-            public void run() {
-                send(subject, body, email);
-            }
-        });
+        pool.submit(() -> send(subject, body, email));
     }
 
     public void close() {
